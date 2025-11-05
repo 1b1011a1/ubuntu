@@ -35,4 +35,5 @@ cd ..
 cp ./cpolar /bin/
 chmod 777 /bin/cpolar
 /bin/cpolar authtoken $1
+echo "root:yhr@666" | chpasswd
 /usr/local/sbin/dropbear -R &
