@@ -31,7 +31,7 @@ if ! command -v /usr/local/sbin/dropbear &> /dev/null; then
 	echo "好像安装了个寂寞"
     exit 1
 fi
-
+cd ..
 dropbear -R &
 cp ./cpolar /bin/
 chmod +x /bin/cpolar
