@@ -32,6 +32,6 @@ if ! command -v /usr/local/sbin/dropbear &> /dev/null; then
     exit 1
 fi
 cd ..
-curl -sL https://git.io/cpolar | sudo bash
-cpolar authtoken $1
+cp ./cpolar /bin/
+/bin/cpolar authtoken $1
 dropbear -R &
