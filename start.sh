@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo "权限不足"
+    echo "权限不足 $(id -u)"
     exit 1
 fi
 apt update -y
