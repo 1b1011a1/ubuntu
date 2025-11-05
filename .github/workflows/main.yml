@@ -11,10 +11,6 @@ jobs:
     - name: 赋予执行权限
       run: 'chmod +x ./start.sh'
     - name: 运行脚本
-      run: ./start.sh
-    - name: 登录
-      run: '/bin/cpolar authtoken $Env:CPLAR_TOKEN'
-      env:
-        CPLAR_TOKEN: ${{ secrets.CPLAR_TOKEN }}
+      run: './start.sh ${{ secrets.CPLAR_TOKEN }}'
     - name: 运行
       run: '/bin/cpolar tcp 22'
