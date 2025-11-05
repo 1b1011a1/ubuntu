@@ -2,6 +2,8 @@
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "权限不足 $(id -u)"
+    echo "sudo $(sudo id -u)"
+    
     exit 1
 fi
 apt update -y
