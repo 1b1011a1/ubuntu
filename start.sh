@@ -2,9 +2,7 @@
 
 if [ "$(id -u)" -ne 0 ]; then
     echo "权限不足 $(id -u)"
-    echo "sudo $(sudo id -u)"
-    
-    exit 1
+    exec sudo bash "$0" "$@"
 fi
 apt update -y
 apt install build-essential -y
