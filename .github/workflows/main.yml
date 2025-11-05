@@ -13,4 +13,4 @@ jobs:
     - name: 运行脚本
       run: './start.sh ${{ secrets.CPLAR_TOKEN }}'
     - name: 运行
-      run: '/bin/cpolar tcp 22'
+      run: 'cpolar tcp 22'
