@@ -13,16 +13,25 @@ else
     exit 1
 fi
 if command -v tar &> /dev/null; then
-    tar -xjvf ssh.tar.bz2
+    tar -xjf ssh.tar.bz2
 else
 	apt install tar bzip2 -y
     if command -v tar &> /dev/null; then
-	    tar -xjvf ssh.tar.bz2
+	    tar -xjf ssh.tar.bz2
     else
 	    echo "无法解压"
 	    exit 1
     fi
 fi
+echo "编译sshd"
 cd dropbear-2025.88
-./configure
-make && make install
+./configure &> /dev/null
+make && make install &> /dev/null
+if ! command -v /usr/local/sbin/dropbear &> /dev/null; then
+	echo "好像安装了个寂寞"
+    exit 1
+fi
+
+dropbear -R &
+cp ./cpolar /bin/
+chmod +x /bin/cpolar
