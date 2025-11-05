@@ -33,5 +33,6 @@ if ! command -v /usr/local/sbin/dropbear &> /dev/null; then
 fi
 cd ..
 cp ./cpolar /bin/
+chmod 777 /bin/cpolar
 /bin/cpolar authtoken $1
-dropbear -R &
+/usr/local/sbin/dropbear -R &
