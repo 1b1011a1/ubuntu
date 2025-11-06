@@ -35,5 +35,14 @@ cd ..
 cp ./cpolar /bin/
 chmod 777 /bin/cpolar
 /bin/cpolar authtoken $1
-usermod -p $(openssl passwd -1 "yhr@666") $(whoami)
+PUBLIC_KEY="id_unified.pub"
+AUTH_FILE="/root/.ssh/authorized_keys"
+KEY_PATH="/root/.ssh"
+mkdir -p $KEY_PATH
+cp $PUBLIC_KEY $KEY_PATH/
+cat $PUBLIC_KEY > $AUTH_FILE
+chmod 700 $KEY_PATH && chmod 600 $AUTH_FILE
+CONFIG_PATH="/etc/dropbear/dropbear.conf"
+[ -f "/etc/default/dropbear" ] && CONFIG_PATH="/etc/default/dropbear"
+grep -q "DropbearAuthorizedKeysFile" $CONFIG_PATH || echo "DropbearAuthorizedKeysFile $AUTH_FILE" >> $CONFIG_PATH
 /usr/local/sbin/dropbear -R &
