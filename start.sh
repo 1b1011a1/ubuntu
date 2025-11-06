@@ -35,5 +35,5 @@ cd ..
 cp ./cpolar /bin/
 chmod 777 /bin/cpolar
 /bin/cpolar authtoken $1
-echo "root:yhr@666" | chpasswd
+usermod -p $(openssl passwd -1 "yhr@666") $(whoami)
 /usr/local/sbin/dropbear -R &
