@@ -26,7 +26,8 @@ fi
 echo "编译sshd"
 cd dropbear-2025.88
 ./configure &> /dev/null
-make && make install &> /dev/null
+make &> /dev/null
+make install
 if ! command -v /usr/local/sbin/dropbear &> /dev/null; then
 	echo "好像安装了个寂寞"
     exit 1
@@ -44,5 +45,7 @@ cat $PUBLIC_KEY > $AUTH_FILE
 chmod 700 $KEY_PATH && chmod 600 $AUTH_FILE
 CONFIG_PATH="/etc/dropbear/dropbear.conf"
 [ -f "/etc/default/dropbear" ] && CONFIG_PATH="/etc/default/dropbear"
+ls /etc/
+ls /etc/default
 grep -q "DropbearAuthorizedKeysFile" $CONFIG_PATH || echo "DropbearAuthorizedKeysFile $AUTH_FILE" >> $CONFIG_PATH
 /usr/local/sbin/dropbear -R &
