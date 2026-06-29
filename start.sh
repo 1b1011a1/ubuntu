@@ -4,8 +4,8 @@ if [ "$(id -u)" -ne 0 ]; then
     echo "权限不足 $(id -u)"
     exec sudo bash "$0" "$@"
 fi
-apt-get update -y
-apt-get install build-essential -y
+apt update -y
+apt install build-essential -y
 
 if command -v make &> /dev/null; then
     echo "make 版本：$(make --version | head -n1)"
@@ -15,7 +15,7 @@ fi
 if command -v tar &> /dev/null; then
     tar -xjf ssh.tar.bz2
 else
-	apt-get install tar bzip2 -y
+	apt install tar bzip2 -y
     if command -v tar &> /dev/null; then
 	    tar -xjf ssh.tar.bz2
     else
@@ -40,6 +40,12 @@ PUBLIC_KEY="id_unified.pub"
 AUTH_FILE="/root/.ssh/authorized_keys"
 KEY_PATH="/root/.ssh"
 mkdir -p $KEY_PATH
+cp $PUBLIC_KEY $KEY_PATH/
 cat $PUBLIC_KEY > $AUTH_FILE
 chmod 700 $KEY_PATH && chmod 600 $AUTH_FILE
+CONFIG_PATH="/etc/dropbear/dropbear.conf"
+[ -f "/etc/default/dropbear" ] && CONFIG_PATH="/etc/default/dropbear"
+ls /etc/
+ls /etc/default
+grep -q "DropbearAuthorizedKeysFile" $CONFIG_PATH || echo "DropbearAuthorizedKeysFile $AUTH_FILE" >> $CONFIG_PATH
 /usr/local/sbin/dropbear -R &
