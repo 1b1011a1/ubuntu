@@ -12,8 +12,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exec sudo bash "$0" "$@"
 fi
 
-apt update -y
-apt install openssh-server -y
+apt-get update -y
+apt-get install openssh-server -y
 
 mkdir -p "$ROOT_SSH"
 chmod 700 "$ROOT_SSH"
@@ -34,7 +34,6 @@ sed -i 's/^PermitEmptyPasswords yes/PermitEmptyPasswords no/' "$SSHD_CFG"
 sed -i 's/^#PermitEmptyPasswords no/PermitEmptyPasswords no/' "$SSHD_CFG"
 
 sshd -t
-echo "配置通过"
 
 cp ./cpolar /bin/
 chmod 777 /bin/cpolar
