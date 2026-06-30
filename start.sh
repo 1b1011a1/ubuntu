@@ -8,12 +8,11 @@ SSHD_CFG="/etc/ssh/sshd_config"
 
 
 if [ "$(id -u)" -ne 0 ]; then
-    echo "权限不足 $(id -u)"
     exec sudo bash "$0" "$@"
 fi
 
 apt-get update -y
-apt-get install openssh-server -y
+apt-get upgrade -y
 
 mkdir -p "$ROOT_SSH"
 chmod 700 "$ROOT_SSH"
